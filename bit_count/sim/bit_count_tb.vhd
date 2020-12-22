@@ -37,14 +37,14 @@ begin
       --
       data <= (others => '0');
       wait for 10 ns;
-      assert bit_count = std_logic_vector(to_unsigned(0,COUNT_WIDTH)) report "All zeros test Failed" severity FAILURE;
-
+      assert bit_count = std_logic_vector(to_unsigned(0,COUNT_WIDTH)) report "All zeros test Failed  " & integer'image(to_integer(unsigned(bit_count))) severity ERROR;
+      
       --
       -- all ones
       --
       data <= (others => '1');
       wait for 10 ns;
-      assert bit_count = std_logic_vector(to_unsigned(BIT_WIDTH,COUNT_WIDTH)) report "All ones test Failed" severity FAILURE;
+      assert bit_count = std_logic_vector(to_unsigned(BIT_WIDTH,COUNT_WIDTH)) report "All ones test Failed " & integer'image(to_integer(unsigned(bit_count))) severity ERROR;
 
       --
       -- loop generates walking bit patterns
@@ -59,7 +59,7 @@ begin
         wait for 10 ns;
 
         assert bit_count = std_logic_vector(to_unsigned(1,COUNT_WIDTH)) 
-          report "Test set bit #" & integer'image(i) & " Failed" 
+          report "Test set bit #" & integer'image(i) & " Failed " & integer'image(to_integer(unsigned(bit_count))) 
           severity ERROR;
 
         --
@@ -70,7 +70,7 @@ begin
         wait for 10 ns;
 
         assert bit_count = std_logic_vector(to_unsigned(BIT_WIDTH-1,COUNT_WIDTH)) 
-          report "Test clear bit #" & integer'image(i) & " Failed" 
+          report "Test clear bit #" & integer'image(i) & " Failed " & integer'image(to_integer(unsigned(bit_count)))
           severity ERROR;
 
         --
@@ -81,7 +81,7 @@ begin
         wait for 10 ns;
 
         assert bit_count = std_logic_vector(to_unsigned(i+1,COUNT_WIDTH)) 
-          report "Test ones #" & integer'image(i) & " Failed" 
+          report "Test ones #" & integer'image(i) & " Failed " & integer'image(to_integer(unsigned(bit_count))) 
           severity ERROR;
 
         --
@@ -92,7 +92,7 @@ begin
         wait for 10 ns;
 
         assert bit_count = std_logic_vector(to_unsigned(BIT_WIDTH-i-1,COUNT_WIDTH)) 
-          report "Test zeros #" & integer'image(i) & " Failed" 
+          report "Test zeros #" & integer'image(i) & " Failed " & integer'image(to_integer(unsigned(bit_count))) 
           severity ERROR;
 
       end loop;
